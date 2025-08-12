@@ -1343,3 +1343,93 @@ section#projects {
     padding: 60px 0;
   }
 }
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* mevcut masaüstü stillerin buraya olduğu gibi korunacak */
+/* ... senin orijinal kodların buraya eklendi ... */
+
+/* Tablet uyumu */
+@media (max-width: 1024px) {
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-image {
+    max-width: 100%;
+    margin-top: 20px;
+  }
+  .about-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .timeline {
+    flex-direction: column;
+    align-items: center;
+  }
+  .testimonials-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Mobil uyumu */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+  .hero-text h1 {
+    font-size: 1.8rem;
+  }
+  .hero-text p {
+    font-size: 1rem;
+  }
+  .social-media-icons {
+    flex-direction: row;
+    gap: 15px;
+    justify-content: center;
+  }
+  .social-line {
+    display: none;
+  }
+  .about-container {
+    gap: 20px;
+  }
+  .projects .swiper-slide {
+    width: 80% !important;
+  }
+  .projects .project-card {
+    transform: scale(1) !important;
+    filter: none !important;
+  }
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+  .drawer {
+    width: 100%;
+  }
+  .menu-toggle-btn {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1001;
+  }
+}
+
+/* Küçük mobil uyumu */
+@media (max-width: 480px) {
+  .hero-text h1 {
+    font-size: 1.5rem;
+  }
+  .hero-text p {
+    font-size: 0.9rem;
+  }
+  .project-card h3 {
+    font-size: 1rem;
+  }
+  .project-card p {
+    font-size: 0.85rem;
+  }
+}
