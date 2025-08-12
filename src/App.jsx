@@ -32,41 +32,41 @@ function App() {
   const [scrollProgress, setScrollProgress] = useState(0)
 
   const [initialized, setInitialized] = useState(false);
-const swiperRef = useRef(null);
-const [activeIndex, setActiveIndex] = useState(0);
-const totalSlides = 6;
+  const swiperRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const totalSlides = 6;
 
-useEffect(() => {
-  if (!swiperRef.current) return;
+  useEffect(() => {
+    if (!swiperRef.current) return;
 
-  let step = 0;
+    let step = 0;
 
-  // 2 saniye bekle sonra otomatik geçişi başlat
-  const startTimeout = setTimeout(() => {
-    setInitialized(true);
-  }, 2000);
+    // 2 saniye bekle sonra otomatik geçişi başlat
+    const startTimeout = setTimeout(() => {
+      setInitialized(true);
+    }, 2000);
 
-  let interval;
-  if (initialized) {
-    interval = setInterval(() => {
-      if (!swiperRef.current) return;
+    let interval;
+    if (initialized) {
+      interval = setInterval(() => {
+        if (!swiperRef.current) return;
 
-      if (step === 0) {
-        swiperRef.current.slideTo(activeIndex + 1, 0);
-        step = 1;
-      } else {
-        swiperRef.current.slideTo(activeIndex + 2, 500);
-        setActiveIndex((prev) => (prev + 1) % totalSlides);
-        step = 0;
-      }
-    }, 3000);
-  }
+        if (step === 0) {
+          swiperRef.current.slideTo(activeIndex + 1, 0);
+          step = 1;
+        } else {
+          swiperRef.current.slideTo(activeIndex + 2, 500);
+          setActiveIndex((prev) => (prev + 1) % totalSlides);
+          step = 0;
+        }
+      }, 3000);
+    }
 
-  return () => {
-    clearTimeout(startTimeout);
-    clearInterval(interval);
-  };
-}, [activeIndex, initialized]);
+    return () => {
+      clearTimeout(startTimeout);
+      clearInterval(interval);
+    };
+  }, [activeIndex, initialized]);
 
   // Turkish translations
   const translations = {
@@ -209,7 +209,7 @@ useEffect(() => {
             break
           }
         }
-        
+
       }
 
       // Calculate scroll progress
@@ -309,7 +309,7 @@ useEffect(() => {
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <div className="profile-image">
-                <img src="/src/assets/graduation-photo.jpg" alt="Mezuniyet Fotoğrafı" />
+                <img src="/graduation-photo.jpg" alt="Mezuniyet Fotoğrafı" />
               </div>
             </motion.div>
 
@@ -345,24 +345,24 @@ useEffect(() => {
 
       {/* About Section */}
       <section id="about" className="about">
-  <div className="container about-container">
-    
-    {/* Soldaki New Graduation kutusu */}
-    <div className="about-left">
-      <div className="experience-box">
-        <h1 className="experience-number">New</h1>
-        <p className="experience-text">Graduation</p>
-      </div>
-    </div>
+        <div className="container about-container">
 
-    {/* Sağdaki mevcut içerik */}
-    <motion.div
-      className="about-content"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-    >
+          {/* Soldaki New Graduation kutusu */}
+          <div className="about-left">
+            <div className="experience-box">
+              <h1 className="experience-number">New</h1>
+              <p className="experience-text">Graduation</p>
+            </div>
+          </div>
+
+          {/* Sağdaki mevcut içerik */}
+          <motion.div
+            className="about-content"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
 
             <h2>{t.greatExperience}</h2>
 
@@ -437,77 +437,77 @@ useEffect(() => {
       </section>
 
 
-{/*  *****************************************Projects Section************************** */}
+      {/*  *****************************************Projects Section************************** */}
 
-<section id="projects" className="projects">
-  <Swiper
-    modules={[Navigation]}
-    spaceBetween={20}
-    slidesPerView={3}
-    centeredSlides={true}
-    navigation
-    loop={false} // loop kapalı
-    onSwiper={(swiper) => {
-      swiperRef.current = swiper;
-    }}
-    onSlideChange={(swiper) => {
-      setActiveIndex(swiper.activeIndex % totalSlides);
-    }}
-  >
-    {[
+      <section id="projects" className="projects">
+        <Swiper
+          modules={[Navigation]}
+          spaceBetween={20}
+          slidesPerView={3}
+          centeredSlides={true}
+          navigation
+          loop={false} // loop kapalı
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+          }}
+          onSlideChange={(swiper) => {
+            setActiveIndex(swiper.activeIndex % totalSlides);
+          }}
+        >
+          {[
 
-      {
-        img: "https://images.unsplash.com/photo-1560350824-8828864cdef1?q=80&w=1374&auto=format&fit=crop",
-        title: t.ecommercePlatform,
-        desc: "Market Fiyatları, farklı marketlerin ürün fiyatlarını kolayca karşılaştırmanı sağlayan pratik bir uygulamadır. Zamandan ve paradan tasarruf et, en uygun fiyatları tek ekranda gör!"
-      },
-      {
-        img: "https://images.unsplash.com/photo-1587573578335-9672da4d0292?w=600&auto=format&fit=crop&q=60",
-        title: t.mobileApp,
-        desc: "Codemania, Dart programlama dilini oyunlaştırılmış görevlerle öğreten eğlenceli bir eğitim uygulamasıdır. Kod yazmayı keyifli ve etkileşimli hale getirir."
-      },
-      {
-        img: "https://images.unsplash.com/photo-1450778869180-41d0601e046e?q=80&w=1886&auto=format&fit=crop",
-        title: t.dashboardSystem,
-        desc: "Petfix, evcil hayvan sahiplerinin ihtiyaç duyduğu tüm hizmetleri tek bir uygulamada toplar. Aşı takibi, mama hatırlatıcıları, veteriner randevuları ve daha fazlası!"
-      },
-      {
-        img: "https://images.unsplash.com/photo-1597392582469-a697322d5c16?q=80&w=2070&auto=format&fit=crop",
-        title: "Words Pool",
-        desc: "İngilizce kelimeleri eğlenceli ve kalıcı şekilde öğrenmeni sağlayan kişisel kelime havuzun. Öğren, tekrar et, test et!"
-      },
-      {
-        img: "https://images.unsplash.com/photo-1629603819085-aaca50d00443?w=600&auto=format&fit=crop&q=60",
-        title: "Drone Controller",
-        desc: "Drone Controller, mobil cihaz üzerinden dronunu kolayca kontrol etmeni sağlar. Bluetooth ile eşleşme, yön kontrolü, hız ayarı ve acil durdurma özellikleri sunar."
-      },
-      {
-        img: "https://plus.unsplash.com/premium_photo-1723914053035-ceee99f45912?q=80&w=1160&auto=format&fit=crop",
-        title: "Resistor Cutting",
-        desc: "Argema Teknoloji’de stajımda, mobil uygulama ile kontrol edilen ve Bluetooth ile komut gönderilen Arduino destekli otomatik direnç kesme makinası geliştirdim."
-      },
-      
-    ].map(({ img, title, desc }, i) => (
-      <SwiperSlide
-        key={i}
-        style={{
-          filter: i === activeIndex ? 'none' : 'blur(3px)',
-          transition: 'filter 0.3s ease',
-        }}
-      >
-        <div className="project-card">
-          <div className="project-image">
-            <img src={img} alt={`Proje ${i + 1}`} />
-          </div>
-          <div className="project-content">
-            <h3>{title}</h3>
-            <p>{desc}</p>
-          </div>
-        </div>
-      </SwiperSlide>
-    ))}
-  </Swiper>
-</section>
+            {
+              img: "https://images.unsplash.com/photo-1560350824-8828864cdef1?q=80&w=1374&auto=format&fit=crop",
+              title: t.ecommercePlatform,
+              desc: "Market Fiyatları, farklı marketlerin ürün fiyatlarını kolayca karşılaştırmanı sağlayan pratik bir uygulamadır. Zamandan ve paradan tasarruf et, en uygun fiyatları tek ekranda gör!"
+            },
+            {
+              img: "https://images.unsplash.com/photo-1587573578335-9672da4d0292?w=600&auto=format&fit=crop&q=60",
+              title: t.mobileApp,
+              desc: "Codemania, Dart programlama dilini oyunlaştırılmış görevlerle öğreten eğlenceli bir eğitim uygulamasıdır. Kod yazmayı keyifli ve etkileşimli hale getirir."
+            },
+            {
+              img: "https://images.unsplash.com/photo-1450778869180-41d0601e046e?q=80&w=1886&auto=format&fit=crop",
+              title: t.dashboardSystem,
+              desc: "Petfix, evcil hayvan sahiplerinin ihtiyaç duyduğu tüm hizmetleri tek bir uygulamada toplar. Aşı takibi, mama hatırlatıcıları, veteriner randevuları ve daha fazlası!"
+            },
+            {
+              img: "https://images.unsplash.com/photo-1597392582469-a697322d5c16?q=80&w=2070&auto=format&fit=crop",
+              title: "Words Pool",
+              desc: "İngilizce kelimeleri eğlenceli ve kalıcı şekilde öğrenmeni sağlayan kişisel kelime havuzun. Öğren, tekrar et, test et!"
+            },
+            {
+              img: "https://images.unsplash.com/photo-1629603819085-aaca50d00443?w=600&auto=format&fit=crop&q=60",
+              title: "Drone Controller",
+              desc: "Drone Controller, mobil cihaz üzerinden dronunu kolayca kontrol etmeni sağlar. Bluetooth ile eşleşme, yön kontrolü, hız ayarı ve acil durdurma özellikleri sunar."
+            },
+            {
+              img: "https://plus.unsplash.com/premium_photo-1723914053035-ceee99f45912?q=80&w=1160&auto=format&fit=crop",
+              title: "Resistor Cutting",
+              desc: "Argema Teknoloji’de stajımda, mobil uygulama ile kontrol edilen ve Bluetooth ile komut gönderilen Arduino destekli otomatik direnç kesme makinası geliştirdim."
+            },
+
+          ].map(({ img, title, desc }, i) => (
+            <SwiperSlide
+              key={i}
+              style={{
+                filter: i === activeIndex ? 'none' : 'blur(3px)',
+                transition: 'filter 0.3s ease',
+              }}
+            >
+              <div className="project-card">
+                <div className="project-image">
+                  <img src={img} alt={`Proje ${i + 1}`} />
+                </div>
+                <div className="project-content">
+                  <h3>{title}</h3>
+                  <p>{desc}</p>
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </section>
 
 
 
