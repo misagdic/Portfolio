@@ -36,14 +36,15 @@ function App() {
   const [activeIndex, setActiveIndex] = useState(0);
   const totalSlides = 6;
 
+  const [centered, setCentered] = useState(false);
+
   useEffect(() => {
     if (!swiperRef.current) return;
 
     let step = 0;
 
-    // 2 saniye bekle sonra otomatik geçişi başlat
     const startTimeout = setTimeout(() => {
-      setInitialized(true);
+      setInitialized(true); // Otomatik kaydırmayı başlat
     }, 2000);
 
     let interval;
@@ -52,9 +53,12 @@ function App() {
         if (!swiperRef.current) return;
 
         if (step === 0) {
-          swiperRef.current.slideTo(activeIndex + 1, 0);
+          // İlk geçiş → 2. slide'a geç ama ortalama yok
+          swiperRef.current.slideTo(activeIndex + 1, 500);
+          setCentered(true); // 2. slide'a geçtiğimiz anda ortalama aç
           step = 1;
         } else {
+          // Sonraki geçişler
           swiperRef.current.slideTo(activeIndex + 2, 500);
           setActiveIndex((prev) => (prev + 1) % totalSlides);
           step = 0;
@@ -67,6 +71,7 @@ function App() {
       clearInterval(interval);
     };
   }, [activeIndex, initialized]);
+
 
   // Turkish translations
   const translations = {
@@ -440,20 +445,23 @@ function App() {
       {/*  *****************************************Projects Section************************** */}
 
       <section id="projects" className="projects">
+        
+        
         <Swiper
           modules={[Navigation]}
           spaceBetween={20}
           slidesPerView={3}
-          centeredSlides={true}
+          centeredSlides={centered} // State'e bağlı
           navigation
-          loop={false} // loop kapalı
+          loop={false}
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
           }}
           onSlideChange={(swiper) => {
-            setActiveIndex(swiper.activeIndex % totalSlides);
+            setActiveIndex(swiper.realIndex);
           }}
         >
+
           {[
 
             {
@@ -492,7 +500,8 @@ function App() {
               key={i}
               style={{
                 filter: i === activeIndex ? 'none' : 'blur(3px)',
-                transition: 'filter 0.3s ease',
+                transform: i === activeIndex ? 'scale(1.11)' : 'scale(1)',
+                transition: 'transform 0.3s ease, filter 0.3s ease',
               }}
             >
               <div className="project-card">
@@ -505,7 +514,8 @@ function App() {
                 </div>
               </div>
             </SwiperSlide>
-          ))}
+          ))
+          }
         </Swiper>
       </section>
 
@@ -599,10 +609,10 @@ function App() {
           >
             <div className="education-header">
               <h2>{t.education}</h2>
-              <button className="download-btn">
+              <a href="/Mobile_cv.pdf" download className="download-btn">
                 <Download size={16} />
                 {t.downloadResume}
-              </button>
+              </a>
             </div>
 
             <div className="timeline">

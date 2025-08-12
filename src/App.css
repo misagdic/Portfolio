@@ -926,7 +926,7 @@ section#projects {
   padding: 4rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  background-color: #fafafa;
+  background-color: #ffffff;
 }
 
 /* Container */
@@ -934,41 +934,61 @@ section#projects {
   width: 100%;
 }
 
-/* Grid düzeni (Swiper kullanmazsan) */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2.5rem;
+/* Proje kartı */
+/* Kart container boşlukları */
+.swiper-slide {
+  padding: 0 12px; /* yatay boşluk */
+  box-sizing: border-box;
 }
 
-/* Proje kartı */
+/* Kart tasarımı */
 .project-card {
   background: #fff;
-  border-radius: 10px;
+  border-radius: 24px;
   overflow: hidden;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 450px; /* tüm kartlar eşit boyda */
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  height: 450px;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
-.project-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
 }
 
 /* Resim alanı */
+.project-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px 24px 0 0;
+}
+
 .project-image img {
   width: 100%;
   height: 200px;
   object-fit: cover;
-  transition: transform 0.35s ease;
+  transition: transform 0.5s ease;
 }
 
 .project-card:hover .project-image img {
-  transform: scale(1.05);
+  transform: scale(1.07);
+}
+
+/* Gradyan overlay */
+.project-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15), rgba(0,0,0,0.45));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-image::after {
+  opacity: 1;
 }
 
 /* İçerik alanı */
@@ -981,17 +1001,17 @@ section#projects {
 }
 
 .project-content h3 {
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   font-weight: 700;
   color: #2c3e50;
   margin-bottom: 0.8rem;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
 }
 
 .project-content p {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #666666;
-  line-height: 1.5;
+  line-height: 1.6;
   flex-grow: 1;
   user-select: text;
 }
