@@ -5,7 +5,6 @@ Modern ve profesyonel portfolio websitesi. React + Vite ile geliştirilmiş, Gil
 ## Özellikler
 
 - 🎨 Modern ve temiz tasarım
-- 📱 Tamamen responsive
 - ⚡ Hızlı yükleme (Vite)
 - 🎭 Smooth animasyonlar (Framer Motion)
 - 🧭 Smooth scroll navigation
@@ -39,8 +38,6 @@ npm run build
 - **About**: Hakkında ve yetenekler
 - **Projects**: Proje portföyü
 - **Education**: Eğitim ve deneyim geçmişi
-- **Testimonials**: Müşteri yorumları
-- **Partners**: İş ortakları
 - **Blog**: Blog yazıları
 - **Contact**: İletişim bilgileri ve form
 
@@ -50,6 +47,4 @@ npm run build
 - `src/App.css` dosyasında stilleri özelleştirebilirsiniz
 - Resimleri kendi resimlerinizle değiştirebilirsiniz
 
-## Lisans
 
-MIT
