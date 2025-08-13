@@ -30,12 +30,10 @@ function App() {
   const [activeSection, setActiveSection] = useState('home')
   const [language, setLanguage] = useState('tr') // Default to Turkish
   const [scrollProgress, setScrollProgress] = useState(0)
-
   const [initialized, setInitialized] = useState(false);
   const swiperRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const totalSlides = 6;
-
   const [centered, setCentered] = useState(false);
 
   useEffect(() => {
@@ -99,7 +97,7 @@ function App() {
       ecommercePlatform: 'Market Fiyatları',
       mobileApp: 'CodeMania',
       dashboardSystem: 'Petfix',
-      downloadResume: 'Özgeçmiş İndir',   
+      downloadResume: 'Özgeçmiş İndir',
       contactTitle: 'İletişim',
       letsGrabCoffee: 'Bir kahve içelim ve sorularınıza yanıt arayalım.',
       yourName: 'Muhammet İkbal Sağdıç',
@@ -185,41 +183,20 @@ function App() {
     setLanguage(language === 'tr' ? 'en' : 'tr')
   }
 
+  // Ekran genişliğini kontrol eden state
+const [isDesktop, setIsDesktop] = useState(false);
 
+useEffect(() => {
+  const checkScreen = () => setIsDesktop(window.innerWidth > 768);
+  checkScreen(); // ilk yüklemede çalışsın
+  window.addEventListener('resize', checkScreen);
+  return () => window.removeEventListener('resize', checkScreen);
+}, []);
 
-
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['home', 'about', 'projects', 'education', 'testimonials', 'partners', 'blog', 'contact']
-      const scrollPosition = window.scrollY + 100
-
-      for (const section of sections) {
-        const element = document.getElementById(section)
-        if (element) {
-          const { offsetTop, offsetHeight } = element
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section)
-            break
-          }
-        }
-
-      }
-
-      // Calculate scroll progress
-      const scrollTop = window.scrollY
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight
-      const scrollPercent = (scrollTop / docHeight) * 100
-      setScrollProgress(scrollPercent)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  return (
-    <div className="app">
-      {/* Drawer Menu */}
+return (
+  <div className="app">
+    {/* Drawer Menu */}
+    {isDesktop && (
       <div className={`drawer ${isMenuOpen ? 'drawer-open' : ''}`}>
         <div className="drawer-header">
           <div className="logo">
@@ -263,14 +240,19 @@ function App() {
           </div>
         </div>
       </div>
+    )}
 
-      {/* Menu Toggle Button */}
+    {/* Menu Toggle Button (sadece desktop) */}
+    {isDesktop && (
       <button
         className="menu-toggle-btn"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
         <Menu size={24} />
       </button>
+    )}
+  
+
 
       {/* Progress Bar */}
       <div className="progress-container">
@@ -349,7 +331,7 @@ function App() {
             </div>
           </div>
 
-          {/* Sağdaki mevcut içerik */}
+          {/* Skills Bar */}
           <motion.div
             className="about-content"
             initial={{ opacity: 0, y: 50 }}
@@ -434,8 +416,8 @@ function App() {
       {/*  *****************************************Projects Section************************** */}
 
       <section id="projects" className="projects">
-        
-        
+
+
         <Swiper
           modules={[Navigation]}
           spaceBetween={20}
@@ -598,7 +580,7 @@ function App() {
           >
             <div className="education-header">
               <h2>{t.education}</h2>
-              <a href="/Mobile_cv.pdf" download className="download-btn">
+              <a href="/Muhammet_Ikbal_Sagdic_CV.pdf" download className="download-btn">
                 <Download size={16} />
                 {t.downloadResume}
               </a>
